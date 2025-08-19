@@ -27,7 +27,7 @@ chroot ./ ./qemu-mips-static\
 gdb-multiarch ./web_cste/cgi-bin/cstecgi.cgi
 ```
 
-When `fopen` failed, `getPortLinkStatus` will return a null pointer.
+When `fopen("/tmp/port_status")` failed, `getPortLinkStatus` will return a null pointer.
 ![alt text](image-9.png)
 
 Tracing execution path from this point, we can trace that the null pointer is passed into `cJSON_CreateString` function.
