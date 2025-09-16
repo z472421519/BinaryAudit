@@ -7,7 +7,7 @@ A null pointer dereference null pointer dereference overflow vulnerability has b
 - **Product**: TOTOLINK N600R Wireless Router
 - **Affected Version**: V4.3.0cu.7866_B20220506
 - **Download Source**: https://totolink.tw/support_view/N600R
-- **Vulnerability Type**: Buffer Overflow
+- **Vulnerability Type**: Null pointer dereference
 
 ## Description:
 The vulnerable code path within the `main` function of cstecgi.cgi extracts the `CONTENT_LENGTH` environment variable by `getenv` and passes it as the size parameter of `malloc`. However, when the `CONTENT_LENGTH` is set as a large size, the `malloc` would return null. The null pointer is passed into `memset` without a null check, leading to a null pointer dereference resulting in a DoS attack.
