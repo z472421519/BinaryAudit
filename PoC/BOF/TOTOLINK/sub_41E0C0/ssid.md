@@ -10,7 +10,7 @@ A buffer overflow vulnerability has been identified in the TOTOLINK N600R router
 - **Vulnerability Type**: Buffer Overflow
 
 ## Description:
-The vulnerable code within the setWiFiBasicConfig function in cstecgi.cgi. It extract the `ssid` parameter into `v10` and pass it into `strncpy` function while the string copy size is also derived from the `ssid` parameter by `v23 = strlen(v10)` . When `ssid` is specified with excessive data (>36), the buffer overflow occurs.
+The vulnerable code is within the setWiFiBasicConfig function in cstecgi.cgi. It extracts the `ssid` parameter into `v10` and passes it into the `strncpy` function while the string copy size is also derived from the `ssid` parameter by `v23 = strlen(v10)`. When `ssid` is specified with excessive data (>36), a buffer overflow occurs.
 
 ![alt text](image-2.png)
 
