@@ -1,4 +1,4 @@
-# Bug Report: NPD in D-Link DIR-823G Router
+# Bug Report: NPD in TOTOLINK N600R Router
 A null pointer dereference null pointer dereference overflow vulnerability has been identified in the TOTOLINK N600R router firmware that allows remote attackers to cause denial of service.
 
 ## Vulnerability Details
