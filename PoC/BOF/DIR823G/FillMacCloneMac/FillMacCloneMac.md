@@ -1,5 +1,5 @@
 # Bug Report: Buffer Overflow in D-Link DIR-823G Router
-A critical buffer overflow vulnerability has been identified in the D-Link DIR-823G router firmware that allows remote attackers to potentially execute arbitrary code or cause denial of service through malformed HTTP requests.
+A buffer overflow vulnerability has been identified in the D-Link DIR-823G router firmware that allows remote attackers to potentially execute arbitrary code or cause denial of service through malformed HTTP requests.
 
 ## Vulnerability Details
 
