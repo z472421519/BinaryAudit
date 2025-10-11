@@ -10,7 +10,7 @@ A buffer overflow vulnerability has been identified in the Tenda AC6 V2.0 15.03.
 - **Vulnerability Type**: Stack-based Buffer Overflow
 
 ## Description:
-The vulnerable code path processes HTTP requests to the `/goform/PowerSaveSet`. When `time` is specified with excessive data, the buffer overflow occurs during `sprintf`.
+The vulnerable code path processes HTTP requests to the `/goform/PowerSaveSet`. When `time` is specified with excessive data, the buffer overflow occurs during `sprintf`/`sprintf`.
 
 ![alt text](image-1.png)
 ## poc
