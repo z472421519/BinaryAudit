@@ -1,4 +1,4 @@
-# Bug Report: Buffer Overflow in Tenda FH1201 V1.2.0.14(408) Router
+# Bug Report: Buffer Overflow in Tenda FH1206 V1.2.0.14(408) Router
 A buffer overflow vulnerability has been identified in the Tenda FH1206 1.2.0.8(8155) router firmware that allows remote attackers to potentially execute arbitrary code or cause denial of service through malformed HTTP requests.
 
 ## Vulnerability Details
